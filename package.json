@@ -1,0 +1,28 @@
+{
+  "name": "cvs-tsk-edh-dispatcher-inbound",
+  "version": "0.0.1",
+  "description": "Receives DB update for CVS <- EDH from queue and performs/invokes actual update operations",
+  "main": "handler.js",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "start": "node_modules/serverless/bin/serverless invoke local -f main --path tests/resources/stream-event.json",
+    "start:docker": "docker-compose -f docker-compose.yml up -d",
+    "build": "node_modules/typescript/bin/tsc --rootDir ./ --outDir .build --sourceMap false && npm run build:copy",
+    "build:dev": "node_modules/typescript/bin/tsc && npm run build:copy",
+    "build:copy": "find src -type f \\( -name \"*.yml\" -or -name \"*.json\" \\) | cpio -pdm .build && find tests -type f \\( -name \"*.yml\" -or -name \"*.json\" \\)  | cpio -pdm .build",
+    "build:docker": "docker-compose -f docker-compose.yml up -d --build",
+    "test": "",
+    "test-i": "",
+    "tslint": "",
+    "sonar-scanner": "",
+    "prepush": "npm test && npm run tslint",
+    "security-checks": "git secrets --scan && git log -p | scanrepo",
+    "coverage": "",
+    "audit-dep": "",
+    "package": "mkdir ${ZIP_NAME} && cp package.json package-lock.json ${ZIP_NAME}/ && cp -r .build/src/* ${ZIP_NAME}/ && cd ${ZIP_NAME} && npm ci --production && rm package.json package-lock.json && zip -qr ../${ZIP_NAME}.zip ."
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
+}
