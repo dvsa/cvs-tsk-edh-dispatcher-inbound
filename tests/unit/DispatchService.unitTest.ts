@@ -2,6 +2,7 @@ import {DispatchService} from "../../src/services/DispatchService";
 import {IBody, ITarget} from "../../src/models";
 import {ERROR} from "../../src/models/enums";
 import {Configuration} from "../../src/utils/Configuration";
+import exp from "constants";
 
 describe("Dispatch Service", () => {
   describe("processPath", () => {
@@ -109,12 +110,24 @@ describe("Dispatch Service", () => {
         body: JSON.stringify(event),
         eventSourceARN: "something-test-stations"
       };
+      const expectedOutput = {
+        body: "{\"test\":\"value\"}",
+        headers: {
+          "X-Amzn-Trace-Id": undefined,
+        },
+        httpMethod: "POST",
+        isBase64Encoded: false,
+        path: "test-stations",
+        queryStringParameters: {
+          "testStationId": "123",
+        }
+      }
       it("invokes the POST method with the right details", async () => {
         invokeMock.mockResolvedValue("posted");
         const output = await svc.processEvent(record);
         expect(output).toEqual("posted");
         expect(invokeMock).toHaveBeenCalled();
-        expect(invokeMock).toHaveBeenCalledWith("test-stations-local", generateCallBody("POST"))
+        expect(invokeMock).toHaveBeenCalledWith("test-stations-local", expectedOutput)
       });
     });
 
@@ -128,11 +141,23 @@ describe("Dispatch Service", () => {
         body: JSON.stringify(event),
         eventSourceARN: "something-test-stations"
       };
+      const expectedOutput = {
+        body: "{\"test\":\"value\"}",
+        headers: {
+          "X-Amzn-Trace-Id": undefined,
+        },
+        httpMethod: "PUT",
+        isBase64Encoded: false,
+        path: "test-stations/123",
+        queryStringParameters: {
+          "testStationId": "123",
+        }
+      }
       it("invokes the PUT method with the right details", async () => {
         const output = await svc.processEvent(record);
         expect(output).not.toBeUndefined();
         expect(invokeMock).toHaveBeenCalled();
-        expect(invokeMock).toHaveBeenCalledWith("test-stations-local", generateCallBody("PUT"))
+        expect(invokeMock).toHaveBeenCalledWith("test-stations-local", expectedOutput)
       });
     });
 
@@ -157,21 +182,6 @@ describe("Dispatch Service", () => {
     });
   });
 });
-
-const generateCallBody = (method: string) => {
-  return {
-    body: "{\"test\":\"value\"}",
-    headers: {
-      "X-Amzn-Trace-Id": undefined,
-    },
-    httpMethod: method,
-    isBase64Encoded: false,
-    path: "test-stations/123",
-    queryStringParameters: {
-      "testStationId": "123",
-    }
-  }
-}
 
 const generateDeleteCallBody = () => {
   return {

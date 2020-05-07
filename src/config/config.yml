@@ -19,7 +19,7 @@ targets:
     lambdaName: test-stations-${BRANCH}
     targetKey: testStationId
     endpoints:
-      POST: test-stations/{testStationId}
+      POST: test-stations
       PUT: test-stations/{testStationId}
       DELETE: test-stations/{testStationId}
 
