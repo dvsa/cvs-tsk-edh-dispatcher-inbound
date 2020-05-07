@@ -15,31 +15,17 @@ import {debugOnlyLog} from "../utils/Utils";
  * @param context - λ Context
  * @param callback - callback function
  */
-const edhDispatcher: Handler = async (event: GetRecordsOutput, context?: Context, callback?: Callback): Promise<void | Array<PromiseResult<SendMessageResult, AWSError>>> => {
+const edhDispatcher: Handler = async (event: IStreamRecord, context?: Context, callback?: Callback): Promise<void | Array<PromiseResult<SendMessageResult, AWSError>>> => {
     if (!event) {
         console.error("ERROR: event is not defined.");
         return;
     }
-    debugOnlyLog("Event: ", event);
-
-    const records = event.Records as IStreamRecord[];
-    if (!records || !records.length) {
-        console.error("ERROR: No Records in event: ", event);
-        return;
-    }
+    console.log("Event: ", event);
 
     // Instantiate the Simple Queue Service
     const dispatchService: DispatchService = new DispatchService(new LambdaService(), new SQService(new SQS()));
-    const sentMessagePromises: Array<Promise<any>> = [];
-    debugOnlyLog("Records: ", records);
 
-    records.forEach((record: IStreamRecord) => {
-        debugOnlyLog("Record: ", record);
-        const call = dispatchService.processEvent(record);
-        sentMessagePromises.push(call);
-    });
-
-    let promises = await Promise.all(sentMessagePromises);
+    let promises = await dispatchService.processEvent(event);
     debugOnlyLog("Response: ", promises);
     return promises
 };
