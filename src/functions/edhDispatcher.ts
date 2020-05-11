@@ -25,6 +25,7 @@ const edhDispatcher: Handler = async (event: IStreamRecord, context?: Context, c
     const dispatchService: DispatchService = new DispatchService(new LambdaService(), new SQService(new SQS()));
 
     let promises = await dispatchService.processEvent(event);
+    console.log("Response: ", promises);
     debugOnlyLog("Response: ", promises);
     return promises
 };

@@ -28,6 +28,7 @@ class DispatchService {
         console.log("processEvent record:", record);
         const target: ITarget = getTargetFromSourceARN(record.eventSourceARN);
         const eventPayload: IBody = JSON.parse(record.body);
+        console.log("eventPayload: ", eventPayload);
         debugOnlyLog("eventPayload: ", eventPayload);
 
         const eventType = eventPayload.changeType; //INSERT, MODIFY or REMOVE
@@ -103,6 +104,7 @@ class DispatchService {
             await this.sqs.sendMessage(JSON.stringify(event), target.dlQueue);
             return Promise.resolve();
         } catch (e) {
+            console.log("Failed to send message to DLQ. ERROR: ", e, " and EVENT: ", event)
             debugOnlyLog("Failed to send message to DLQ. ERROR: ", e, " and EVENT: ", event)
             return Promise.reject()
         }
