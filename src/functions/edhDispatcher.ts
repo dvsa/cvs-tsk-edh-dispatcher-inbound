@@ -3,7 +3,7 @@ import {AWSError, SQS} from "aws-sdk";
 import {DispatchService} from "../services/DispatchService";
 import {PromiseResult} from "aws-sdk/lib/request";
 import {SendMessageResult} from "aws-sdk/clients/sqs";
-import {IStreamRecord} from "../models";
+import {IEvent} from "../models";
 import {LambdaService} from "../services/LambdaService";
 import {SQService} from "../services/SQService";
 import {debugOnlyLog} from "../utils/Utils";
@@ -14,7 +14,7 @@ import {debugOnlyLog} from "../utils/Utils";
  * @param context - λ Context
  * @param callback - callback function
  */
-const edhDispatcher: Handler = async (event: IStreamRecord, context?: Context, callback?: Callback): Promise<void | Array<PromiseResult<SendMessageResult, AWSError>>> => {
+const edhDispatcher: Handler = async (event: IEvent, context?: Context, callback?: Callback): Promise<void | Array<PromiseResult<SendMessageResult, AWSError>>> => {
     if (!event) {
         console.error("ERROR: event is not defined.");
         return;
@@ -24,7 +24,9 @@ const edhDispatcher: Handler = async (event: IStreamRecord, context?: Context, c
     // Instantiate the Simple Queue Service
     const dispatchService: DispatchService = new DispatchService(new LambdaService(), new SQService(new SQS()));
 
-    let promises = await dispatchService.processEvent(event);
+    // Only ever getting one event at a time
+    const record = event.Records[0];
+    let promises = await dispatchService.processEvent(record);
     console.log("Response: ", promises);
     debugOnlyLog("Response: ", promises);
     return promises

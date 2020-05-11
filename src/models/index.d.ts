@@ -1,3 +1,6 @@
+export interface IEvent {
+  Records: IStreamRecord[];
+}
 
 export interface IStreamRecord {
   body: string;
