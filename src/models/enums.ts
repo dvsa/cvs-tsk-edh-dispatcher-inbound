@@ -8,7 +8,7 @@ export enum ERROR {
 }
 
 export enum EVENT_TYPE {
-  INSERT = "INSERT",
-  MODIFY = "MODIFY",
-  REMOVE = "REMOVE"
+  UPDATE = "UPDATE",
+  CREATE = "CREATE",
+  DELETE = "DELETE"
 }

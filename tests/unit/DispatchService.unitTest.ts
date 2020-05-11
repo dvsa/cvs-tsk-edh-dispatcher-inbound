@@ -13,7 +13,7 @@ describe("Dispatch Service", () => {
       const path = "/test-string/{testStationId}";
       it("replaces it with the matching key of the event", () => {
         const event: IBody = {
-          changeType: "INSERT",
+          changeType: "CREATE",
           key: "123",
           body: {"test": "value"}
         };
@@ -26,7 +26,7 @@ describe("Dispatch Service", () => {
       const path = "/test-string/SystemNumber";
       it("returns the original path", () => {
         const event: IBody = {
-          changeType: "INSERT",
+          changeType: "CREATE",
           key: "123",
           body: {"test": "value"}
         };
@@ -100,9 +100,9 @@ describe("Dispatch Service", () => {
       });
     });
 
-    describe("with valid INSERT event type", () => {
+    describe("with valid CREATE event type", () => {
       const event: IBody = {
-        changeType: "INSERT",
+        changeType: "CREATE",
         key: "123",
         body
       };
@@ -131,9 +131,9 @@ describe("Dispatch Service", () => {
       });
     });
 
-    describe("with valid MODIFY event type", () => {
+    describe("with valid UPDATE event type", () => {
       const event: IBody = {
-        changeType: "MODIFY",
+        changeType: "UPDATE",
         key: "123",
         body
       };
@@ -161,9 +161,9 @@ describe("Dispatch Service", () => {
       });
     });
 
-    describe("with valid REMOVE event type", () => {
+    describe("with valid DELETE event type", () => {
       const event: IBody = {
-        changeType: "REMOVE",
+        changeType: "DELETE",
         key: "123",
         body
       };

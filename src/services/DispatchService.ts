@@ -34,11 +34,11 @@ class DispatchService {
         const eventType = eventPayload.changeType; //INSERT, MODIFY or REMOVE
 
         switch (eventType) {
-            case EVENT_TYPE.INSERT:
+            case EVENT_TYPE.CREATE:
                 return this.sendPost(eventPayload,target);
-            case EVENT_TYPE.MODIFY:
+            case EVENT_TYPE.UPDATE:
                 return this.sendPut(eventPayload, target);
-            case EVENT_TYPE.REMOVE:
+            case EVENT_TYPE.DELETE:
                 return this.sendDelete(eventPayload, target);
             default:
                 console.error(ERROR.NO_HANDLER_METHOD);
