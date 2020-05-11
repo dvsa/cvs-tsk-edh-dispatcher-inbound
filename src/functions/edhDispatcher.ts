@@ -3,7 +3,6 @@ import {AWSError, SQS} from "aws-sdk";
 import {DispatchService} from "../services/DispatchService";
 import {PromiseResult} from "aws-sdk/lib/request";
 import {SendMessageResult} from "aws-sdk/clients/sqs";
-import {GetRecordsOutput} from "aws-sdk/clients/dynamodbstreams";
 import {IStreamRecord} from "../models";
 import {LambdaService} from "../services/LambdaService";
 import {SQService} from "../services/SQService";

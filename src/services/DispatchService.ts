@@ -2,7 +2,6 @@ import {Configuration} from "../utils/Configuration";
 import {ERROR, EVENT_TYPE} from "../models/enums";
 import {IBody, ILambdaEvent, IStreamRecord, ITarget} from "../models";
 import {LambdaService} from "./LambdaService";
-import {AWSError, DynamoDB} from "aws-sdk";
 import {SQService} from "./SQService";
 import {debugOnlyLog, getTargetFromSourceARN} from "../utils/Utils";
 
