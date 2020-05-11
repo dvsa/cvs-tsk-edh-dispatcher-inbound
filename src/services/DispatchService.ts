@@ -25,6 +25,7 @@ class DispatchService {
     }
 
     public processEvent(record: IStreamRecord) {
+        console.log("processEvent record:", record);
         const target: ITarget = getTargetFromSourceARN(record.eventSourceARN);
         const eventPayload: IBody = JSON.parse(record.body);
         debugOnlyLog("eventPayload: ", eventPayload);

@@ -7,6 +7,7 @@ import {ITarget, ITargetConfig} from "../models";
 
 export const getTargetFromSourceARN = (arn: string) => {
     const targets: ITargetConfig = Configuration.getInstance().getTargets();
+    console.log("getTargetFromSourceARN input: ", arn)
     debugOnlyLog("targets: ", targets);
     const validTargets = Object.values(targets).filter((target: ITarget) => arn.includes(target.queue));
     if (validTargets.length !== 1) {
