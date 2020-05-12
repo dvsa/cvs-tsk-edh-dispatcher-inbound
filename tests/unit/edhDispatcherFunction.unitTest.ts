@@ -25,7 +25,7 @@ describe("edhDispatcher function", () => {
         body: JSON.stringify(body),
         eventSourceARN: 'arn:aws:sqs:eu-west-1:006106226016:cvs-edh-dispatcher-test-results-cvsb-10773-queue'
       }]};
-      const processMock = jest.fn();
+      const processMock = jest.fn().mockResolvedValue({});
       jest.spyOn(DispatchService.prototype, "processEvent").mockImplementation(processMock);
       await edhDispatcher(event, ctx, () => {});
       expect(processMock).toBeCalledWith(event.Records[0]);

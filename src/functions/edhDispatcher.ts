@@ -26,10 +26,16 @@ const edhDispatcher: Handler = async (event: IEvent, context?: Context, callback
 
     // Only ever getting one event at a time
     const record = event.Records[0];
-    let promises = await dispatchService.processEvent(record);
-    console.log("Response: ", promises);
-    debugOnlyLog("Response: ", promises);
-    return promises
+    let response = await dispatchService.processEvent(record).then((resp) => {
+        if (resp.FunctionError) {
+            console.error(resp);
+            throw new Error(resp.Payload);
+        }
+        return resp;
+    });
+    console.log("Response: ", response);
+    debugOnlyLog("Response: ", response);
+    return response
 };
 
 export {edhDispatcher};
