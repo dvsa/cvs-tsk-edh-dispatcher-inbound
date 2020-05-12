@@ -28,7 +28,7 @@ describe("DispatchDAO", () => {
       expect(output).toEqual("All Good");
       expect(invokeMock.mock.calls[0][0]).toEqual({
         FunctionName: 'testName',
-        InvocationType: 'Event',
+        InvocationType: 'RequestResponse',
         Payload: '{"test":"body"}'
       })
     });

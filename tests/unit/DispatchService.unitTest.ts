@@ -117,8 +117,8 @@ describe("Dispatch Service", () => {
         },
         httpMethod: "POST",
         isBase64Encoded: false,
-        path: "test-stations",
-        queryStringParameters: {
+        path: "/test-stations",
+        pathParameters: {
           "testStationId": "123",
         }
       }
@@ -148,8 +148,8 @@ describe("Dispatch Service", () => {
         },
         httpMethod: "PUT",
         isBase64Encoded: false,
-        path: "test-stations/123",
-        queryStringParameters: {
+        path: "/test-stations/123",
+        pathParameters: {
           "testStationId": "123",
         }
       }
@@ -190,8 +190,8 @@ const generateDeleteCallBody = () => {
     },
     httpMethod: "DELETE",
     isBase64Encoded: false,
-    path: "test-stations/123",
-    queryStringParameters: {
+    path: "/test-stations/123",
+    pathParameters: {
       "testStationId": "123",
     }
   }
