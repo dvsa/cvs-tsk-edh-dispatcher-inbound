@@ -19,7 +19,7 @@ export class LambdaService {
   public invoke(lambdaName: any, lambdaEvent: any) {
     return this.lambda.invoke({
       FunctionName: lambdaName,
-      InvocationType: "Event",
+      InvocationType: "RequestResponse",
       Payload: JSON.stringify(lambdaEvent)
     });
   }
