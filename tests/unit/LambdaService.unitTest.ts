@@ -1,9 +1,7 @@
 import {LambdaService} from "../../src/services/LambdaService";
-import {Configuration} from "../../src/utils/Configuration";
 import AWS from "aws-sdk"
-import restoreAllMocks = jest.restoreAllMocks;
 
-describe("DispatchDAO", () => {
+describe("LambdaService", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -21,7 +19,9 @@ describe("DispatchDAO", () => {
     })
     const svc = new LambdaService();
     const body = {test:"body"};
-    invokeMock.mockReturnValueOnce("All Good");
+    invokeMock.mockReturnValueOnce({
+      promise: () => { return "All Good"}
+    });
     it("sends the right details and returns the response value", async () => {
       expect.assertions(2)
       const output = await svc.invoke("testName", body);

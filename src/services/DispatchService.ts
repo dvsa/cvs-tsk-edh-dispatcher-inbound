@@ -95,10 +95,6 @@ class DispatchService {
         return params;
     };
 
-    // public isRetryableError(error: AWSError): boolean {
-    //     return !(error.statusCode >= 400 && error.statusCode < 429);
-    // }
-
     public async sendRecordToDLQ(event: IBody, target: ITarget) {
         try {
             await this.sqs.sendMessage(JSON.stringify(event), target.dlQueue);

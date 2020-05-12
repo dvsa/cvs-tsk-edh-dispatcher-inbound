@@ -1,4 +1,3 @@
-import {validateInvocationResponse} from "../utils/validateInvocationResponse";
 /* tslint:disable */
 let AWS:any;
 if (process.env._X_AMZN_TRACE_ID) {
@@ -21,6 +20,6 @@ export class LambdaService {
       FunctionName: lambdaName,
       InvocationType: "RequestResponse",
       Payload: JSON.stringify(lambdaEvent)
-    });
+    }).promise();
   }
 }
