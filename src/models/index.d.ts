@@ -43,7 +43,7 @@ export interface ILambdaEvent {
   headers: {
     "X-Amzn-Trace-Id": string | undefined
   },
-  queryStringParameters: {
+  pathParameters?: {
     [key: string]: string
   },
   isBase64Encoded: boolean,

@@ -84,7 +84,7 @@ class DispatchService {
             headers: {
                 "X-Amzn-Trace-Id": process.env._X_AMZN_TRACE_ID
             },
-            queryStringParameters: {
+            pathParameters: {
                 [target.targetKey]: event.key
             },
             isBase64Encoded: false
