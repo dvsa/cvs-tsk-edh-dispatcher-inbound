@@ -7,6 +7,7 @@ import {IEvent} from "../models";
 import {LambdaService} from "../services/LambdaService";
 import {SQService} from "../services/SQService";
 import {debugOnlyLog} from "../utils/Utils";
+import {validateInvocationResponse} from "../utils/validateInvocationResponse";
 
 /**
  * λ function to process a DynamoDB stream of test results into a queue for certificate generation.
@@ -27,11 +28,7 @@ const edhDispatcher: Handler = async (event: IEvent, context?: Context, callback
     // Only ever getting one event at a time
     const record = event.Records[0];
     let response = await dispatchService.processEvent(record).then((resp) => {
-        if (resp.FunctionError) {
-            console.error(resp);
-            throw new Error(resp.Payload);
-        }
-        return resp;
+        return validateInvocationResponse(resp)
     });
     console.log("Response: ", response);
     debugOnlyLog("Response: ", response);

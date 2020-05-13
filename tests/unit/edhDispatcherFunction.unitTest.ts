@@ -3,12 +3,14 @@ import {DispatchService} from "../../src/services/DispatchService";
 import {Configuration} from "../../src/utils/Configuration";
 import {Context} from "aws-lambda";
 import {AWSError} from "aws-sdk";
+import * as util from "../../src/utils/validateInvocationResponse";
 
 describe("edhDispatcher function", () => {
   // @ts-ignore
   const ctx: Context = null;
   // @ts-ignore
   Configuration.instance = new Configuration("../../src/config/config.yml");
+  const validationMock = jest.spyOn(util, "validateInvocationResponse").mockResolvedValue("")
 
   describe("if the event is undefined", () => {
     it("should return undefined", async () => {
@@ -57,6 +59,7 @@ describe("edhDispatcher function", () => {
         }]};
         const resp = "all good";
         const processMock = jest.spyOn(DispatchService.prototype, "processEvent").mockReturnValue(Promise.resolve(resp));
+        validationMock.mockReturnValue(resp);
         expect.assertions(2);
         const output = await edhDispatcher(event, ctx, () => {});
         expect(output).toEqual(resp);
