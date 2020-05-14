@@ -44,5 +44,7 @@ In order to generate SonarQube reports on local, follow the steps:
 
 ### Environmental variables
 
-- The `DEBUG` environment variable indicates that enhanced logging should be used. Use `DEBUG=TRUE` for all the logs. 
-
+- The `BRANCH` environment variable indicates in which environment is this application running. Not setting this variable will result in defaulting to `local`.
+- The `DEBUG` environment variable is used as a feature flag, to enable more extensive logging. Does more logging if value is `TRUE`, otherwise off
+- The `VALIDATION` environment variable is used as a feature flag, to enable validation. Does validation if value is `TRUE`, otherwise off
+ 
