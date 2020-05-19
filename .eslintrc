@@ -1,0 +1,20 @@
+{
+  "extends": "@dvsa/eslint-config-ts",
+  "rules": {
+//    "max-line-length": {
+//      "options": [240]
+//    },
+//    "new-parens": false,
+//    "no-arg": true,
+//    "no-bitwise": false,
+//    "no-conditional-assignment": false,
+//    "no-consecutive-blank-lines": false,
+//    "no-console": [false],
+//    "object-literal-sort-keys": false,
+//    "trailing-comma": [false],
+//    "member-ordering": false,
+//    "ordered-imports": false,
+//    "jsdoc-format": true,
+//    "completed-docs": [true, "methods", "classes"]
+  }
+}
