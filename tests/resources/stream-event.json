@@ -1,0 +1,12 @@
+{
+  "Records": [
+    {
+      "StatusCode": 200,
+      "Payload": {
+        "statusCode": 200,
+        "body": {}
+      },
+      "eventSourceARN": ""
+    }
+  ]
+}
