@@ -19,7 +19,7 @@
     "test": "npm run test:unit -- --coverage",
     "test-i": "echo 'nothing to do'",
     "lint": "eslint . --fix",
-    "sonar-scanner": "sonar-scanner",
+    "sonar-scanner": "npm run test && sonar-scanner",
     "prepush": "npm run test && npm run build && npm run test-i",
     "security-checks": "git secrets --scan && git log -p | scanrepo",
     "audit": "npm audit",
@@ -61,7 +61,7 @@
     "typescript": "^3.8.3"
   },
   "jestSonar": {
-    "reportPath": ".reports",
+    "reportPath": "coverage",
     "reportFile": "test-report.xml",
     "indent": 4
   },
